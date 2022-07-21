@@ -50,20 +50,19 @@ class _AMapToolApiCodec extends StandardMessageCodec {
     if (value is AMapLatLng) {
       buffer.putUint8(128);
       writeValue(buffer, value.encode());
-    } else 
-{
+    } else {
       super.writeValue(buffer, value);
     }
   }
+
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 128:       
+      case 128:
         return AMapLatLng.decode(readValue(buffer)!);
-      
-      default:      
+
+      default:
         return super.readValueOfType(type, buffer);
-      
     }
   }
 }
@@ -72,7 +71,8 @@ class AMapToolApi {
   /// Constructor for [AMapToolApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  AMapToolApi({BinaryMessenger? binaryMessenger}) : _binaryMessenger = binaryMessenger;
+  AMapToolApi({BinaryMessenger? binaryMessenger})
+      : _binaryMessenger = binaryMessenger;
 
   final BinaryMessenger? _binaryMessenger;
 
@@ -80,16 +80,18 @@ class AMapToolApi {
 
   Future<AMapLatLng> convertLatLng(AMapLatLng arg_latLng, int arg_type) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.AMapToolApi.convertLatLng', codec, binaryMessenger: _binaryMessenger);
-    final Map<Object?, Object?>? replyMap =
-        await channel.send(<Object?>[arg_latLng, arg_type]) as Map<Object?, Object?>?;
+        'dev.flutter.pigeon.AMapToolApi.convertLatLng', codec,
+        binaryMessenger: _binaryMessenger);
+    final Map<Object?, Object?>? replyMap = await channel
+        .send(<Object?>[arg_latLng, arg_type]) as Map<Object?, Object?>?;
     if (replyMap == null) {
       throw PlatformException(
         code: 'channel-error',
         message: 'Unable to establish connection on channel.',
       );
     } else if (replyMap['error'] != null) {
-      final Map<Object?, Object?> error = (replyMap['error'] as Map<Object?, Object?>?)!;
+      final Map<Object?, Object?> error =
+          (replyMap['error'] as Map<Object?, Object?>?)!;
       throw PlatformException(
         code: (error['code'] as String?)!,
         message: error['message'] as String?,

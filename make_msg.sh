@@ -8,10 +8,14 @@ if([ ! -d $DST_DART_PATH ]); then
     mkdir -p $DST_DART_PATH
 fi
 
+DST_DART_FILE="$DST_DART_PATH/pigeon.dart"
+
 flutter pub run pigeon \
   --input pigeons/message.dart \
-  --dart_out "$DST_DART_PATH/pigeon.dart" \
+  --dart_out "$DST_DART_FILE" \
   --objc_header_out ios/Classes/pigeon.h \
   --objc_source_out ios/Classes/pigeon.m \
   --java_out "$DST_ANDROID_PATH/Pigeon.java" \
   --java_package "com.fluttercandies.amap.pigeon"
+
+flutter format "$DST_DART_FILE"
