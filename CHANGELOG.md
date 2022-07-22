@@ -2,4 +2,6 @@
 
 ## 0.1.0
 
-* TODO: Describe initial release.
+- 转换为高德坐标系的方法
+- 测量距离
+- 测量面积
