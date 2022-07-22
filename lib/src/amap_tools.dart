@@ -56,4 +56,14 @@ class AmapTools {
     final src2 = latLng2.toAMapLatLng();
     return _api.calculateArea(src1, src2);
   }
+
+  /// 计算多边形面积
+  ///
+  /// [latLngs] 多边形经纬度数组
+  static Future<double> calculateAreaOfPolygon(
+    List<LatLng> latLngs,
+  ) async {
+    final srcs = latLngs.map((latLng) => latLng.toAMapLatLng()).toList();
+    return _api.calculateAreaOfPolygon(srcs);
+  }
 }

@@ -15,6 +15,10 @@ abstract class AMapToolApi {
   /// [latLng1] 经纬度 1
   /// [latLng2] 经纬度 2
   double calculateArea(AMapLatLng latLng1, AMapLatLng latLng2);
+
+  /// 计算多边形面积
+  /// [latLngs] 多边形经纬度数组
+  double calculateAreaOfPolygon(List<AMapLatLng> latLngs);
 }
 
 class AMapLatLng {

@@ -39,6 +39,8 @@ NSObject<FlutterMessageCodec> *AMapToolApiGetCodec(void);
 - (nullable NSNumber *)calculateDistanceLatLng1:(AMapLatLng *)latLng1 latLng2:(AMapLatLng *)latLng2 error:(FlutterError *_Nullable *_Nonnull)error;
 /// @return `nil` only when `error != nil`.
 - (nullable NSNumber *)calculateAreaLatLng1:(AMapLatLng *)latLng1 latLng2:(AMapLatLng *)latLng2 error:(FlutterError *_Nullable *_Nonnull)error;
+/// @return `nil` only when `error != nil`.
+- (nullable NSNumber *)calculateAreaOfPolygonLatLngs:(NSArray<AMapLatLng *> *)latLngs error:(FlutterError *_Nullable *_Nonnull)error;
 @end
 
 extern void AMapToolApiSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<AMapToolApi> *_Nullable api);

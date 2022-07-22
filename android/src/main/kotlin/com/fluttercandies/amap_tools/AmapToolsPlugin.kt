@@ -52,4 +52,9 @@ class AmapToolsPlugin : FlutterPlugin, MethodCallHandler, Pigeon.AMapToolApi {
     override fun calculateArea(latLng1: Pigeon.AMapLatLng, latLng2: Pigeon.AMapLatLng): Double {
         return AMapUtils.calculateArea(latLng1.toAmap(), latLng2.toAmap()).toDouble()
     }
+
+    override fun calculateAreaOfPolygon(latLngs: MutableList<Pigeon.AMapLatLng>): Double {
+        val points = latLngs.map { it.toAmap() }
+        return AMapUtils.calculateArea(points).toDouble()
+    }
 }

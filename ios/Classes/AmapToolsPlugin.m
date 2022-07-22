@@ -12,6 +12,13 @@
 #import "AMapToolConverter.h"
 #import "MAGeometry.h"
 
+
+MAMapPoint AMapLatLngToMAMapPoint(AMapLatLng* latLng){
+    CLLocationCoordinate2D tmp = AMapLatLngToCLLocationCoordinate2D(latLng);
+    return MAMapPointForCoordinate(tmp);
+}
+
+
 @implementation AmapToolsPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     [SwiftAmapToolsPlugin registerWithRegistrar:registrar];
@@ -65,13 +72,27 @@
 
 
 - (nullable NSNumber *)calculateDistanceLatLng1:(nonnull AMapLatLng *)latLng1 latLng2:(nonnull AMapLatLng *)latLng2 error:(FlutterError * _Nullable __autoreleasing * _Nonnull)error {
-    CLLocationCoordinate2D point1 = AMapLatLngToCLLocationCoordinate2D(latLng1);
-    CLLocationCoordinate2D point2 = AMapLatLngToCLLocationCoordinate2D(latLng2);
+    MAMapPoint point1 = AMapLatLngToMAMapPoint(latLng1);
+    MAMapPoint point2 = AMapLatLngToMAMapPoint(latLng2);
     
     CLLocationDistance distance = MAMetersBetweenMapPoints(point1, point2);
     
     return @(distance);
 }
 
+- (nullable NSNumber *)calculateAreaOfPolygonLatLngs:(nonnull NSArray<AMapLatLng *> *)latLngs error:(FlutterError * _Nullable __autoreleasing * _Nonnull)error {
+    int count = (int)latLngs.count;
+    CLLocationCoordinate2D* array = alloca(sizeof(CLLocationCoordinate2D) * count);
+    
+    for (int i = 0; i < count; i++) {
+        AMapLatLng *ll = latLngs[i];
+        CLLocationCoordinate2D item = AMapLatLngToCLLocationCoordinate2D(ll);
+        array[i] = item;
+    }
+    
+    double result = MAAreaForPolygon(array, count);
+    
+    return @(result);
+}
 
 @end

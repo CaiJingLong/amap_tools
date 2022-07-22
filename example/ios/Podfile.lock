@@ -30,7 +30,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AMap3DMap: 6e0dd1fdc9bc83603ea9dcdcbc5ff7daf767e411
   amap_flutter_map: 979e54d227cedac6c7504a2151bfbf3bcf96760a
-  amap_tools: 6330b8b4ae8ac8afa3abb3b7d02db57639d804b0
+  amap_tools: b34f333dd2b86319d4db4e42fefa97201f90b887
   AMapFoundation: c14fcebd8e4267c593bd2e25067ac86b0ce64aba
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
 

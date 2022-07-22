@@ -177,4 +177,24 @@ void AMapToolApiSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<AMapT
       [channel setMessageHandler:nil];
     }
   }
+  {
+    FlutterBasicMessageChannel *channel =
+      [[FlutterBasicMessageChannel alloc]
+        initWithName:@"dev.flutter.pigeon.AMapToolApi.calculateAreaOfPolygon"
+        binaryMessenger:binaryMessenger
+        codec:AMapToolApiGetCodec()        ];
+    if (api) {
+      NSCAssert([api respondsToSelector:@selector(calculateAreaOfPolygonLatLngs:error:)], @"AMapToolApi api (%@) doesn't respond to @selector(calculateAreaOfPolygonLatLngs:error:)", api);
+      [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
+        NSArray *args = message;
+        NSArray<AMapLatLng *> *arg_latLngs = GetNullableObjectAtIndex(args, 0);
+        FlutterError *error;
+        NSNumber *output = [api calculateAreaOfPolygonLatLngs:arg_latLngs error:&error];
+        callback(wrapResult(output, error));
+      }];
+    }
+    else {
+      [channel setMessageHandler:nil];
+    }
+  }
 }
