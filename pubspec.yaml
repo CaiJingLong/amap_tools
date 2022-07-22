@@ -1,5 +1,5 @@
 name: amap_tools
-description: A new flutter plugin project.
+description: Add some methods for amap. Wrapper some common native methods.
 version: 0.1.0
 homepage: http://github.com/caijinglong/amap_tools
 
