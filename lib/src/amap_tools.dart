@@ -16,7 +16,9 @@ class AmapTools {
   }
 
   /// 转化坐标系
+  ///
   /// [latLng] 经纬度
+  ///
   /// [type] 坐标系类型
   static Future<LatLng> convertCoordinate(
     LatLng latLng,
@@ -28,7 +30,9 @@ class AmapTools {
   }
 
   /// 计算距离
+  ///
   /// [latLng1] 经纬度1
+  ///
   /// [latLng2] 经纬度2
   static Future<double> calculateDistance(
     LatLng latLng1,
@@ -40,7 +44,9 @@ class AmapTools {
   }
 
   /// 计算面积
+  ///
   /// [latLng1] 经纬度 1
+  ///
   /// [latLng2] 经纬度 2
   static Future<double> calculateArea(
     LatLng latLng1,
