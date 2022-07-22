@@ -9,6 +9,6 @@
 #import "pigeon.h"
 #import <CoreLocation/CoreLocation.h>
 
-CLLocationCoordinate2D AMapLatLngToCLLocationCoordinate2D(AMapLatLng* latLng);
+CLLocationCoordinate2D CLLocationCoordinate2DForAMapLatLng(AMapLatLng* latLng);
 
-AMapLatLng* CLLocationCoordinate2DToAmapLatLng(CLLocationCoordinate2D latLng);
+AMapLatLng* AmapLatLngForCLLocationCoordinate2D(CLLocationCoordinate2D latLng);

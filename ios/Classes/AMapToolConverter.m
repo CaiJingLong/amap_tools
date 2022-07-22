@@ -7,10 +7,10 @@
 
 #import "AMapToolConverter.h"
 
-CLLocationCoordinate2D AMapLatLngToCLLocationCoordinate2D(AMapLatLng* latLng){
+CLLocationCoordinate2D CLLocationCoordinate2DForAMapLatLng(AMapLatLng* latLng){
     return CLLocationCoordinate2DMake(latLng.latitude.doubleValue, latLng.longitude.doubleValue);
 }
 
-AMapLatLng* CLLocationCoordinate2DToAmapLatLng(CLLocationCoordinate2D latLng){
+AMapLatLng* AmapLatLngForCLLocationCoordinate2D(CLLocationCoordinate2D latLng){
     return [AMapLatLng makeWithLatitude:@(latLng.latitude) longitude:@(latLng.longitude)];
 }

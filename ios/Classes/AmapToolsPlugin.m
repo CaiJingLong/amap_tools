@@ -13,8 +13,8 @@
 #import "MAGeometry.h"
 
 
-MAMapPoint AMapLatLngToMAMapPoint(AMapLatLng* latLng){
-    CLLocationCoordinate2D tmp = AMapLatLngToCLLocationCoordinate2D(latLng);
+MAMapPoint MAMapPointForAMapLatLng(AMapLatLng* latLng){
+    CLLocationCoordinate2D tmp = CLLocationCoordinate2DForAMapLatLng(latLng);
     return MAMapPointForCoordinate(tmp);
 }
 
@@ -26,7 +26,7 @@ MAMapPoint AMapLatLngToMAMapPoint(AMapLatLng* latLng){
 }
 
 - (nullable AMapLatLng *)convertLatLngLatLng:(nonnull AMapLatLng *)latLng type:(nonnull NSNumber *)type error:(FlutterError * _Nullable __autoreleasing * _Nonnull)error {
-    CLLocationCoordinate2D src = AMapLatLngToCLLocationCoordinate2D(latLng);
+    CLLocationCoordinate2D src = CLLocationCoordinate2DForAMapLatLng(latLng);
     
     PigeonAmapCoordinateType srcIntValue = [type intValue];
     AMapCoordinateType srcType;
@@ -58,12 +58,12 @@ MAMapPoint AMapLatLngToMAMapPoint(AMapLatLng* latLng){
     }
     
     CLLocationCoordinate2D result = AMapCoordinateConvert(src, srcType);
-    return CLLocationCoordinate2DToAmapLatLng(result);
+    return AmapLatLngForCLLocationCoordinate2D(result);
 }
 
 - (nullable NSNumber *)calculateAreaLatLng1:(nonnull AMapLatLng *)latLng1 latLng2:(nonnull AMapLatLng *)latLng2 error:(FlutterError * _Nullable __autoreleasing * _Nonnull)error {
-    CLLocationCoordinate2D point1 = AMapLatLngToCLLocationCoordinate2D(latLng1);
-    CLLocationCoordinate2D point2 = AMapLatLngToCLLocationCoordinate2D(latLng2);
+    CLLocationCoordinate2D point1 = CLLocationCoordinate2DForAMapLatLng(latLng1);
+    CLLocationCoordinate2D point2 = CLLocationCoordinate2DForAMapLatLng(latLng2);
     
     CLLocationDistance area = MAAreaBetweenCoordinates(point1, point2);
     
@@ -72,8 +72,8 @@ MAMapPoint AMapLatLngToMAMapPoint(AMapLatLng* latLng){
 
 
 - (nullable NSNumber *)calculateDistanceLatLng1:(nonnull AMapLatLng *)latLng1 latLng2:(nonnull AMapLatLng *)latLng2 error:(FlutterError * _Nullable __autoreleasing * _Nonnull)error {
-    MAMapPoint point1 = AMapLatLngToMAMapPoint(latLng1);
-    MAMapPoint point2 = AMapLatLngToMAMapPoint(latLng2);
+    MAMapPoint point1 = MAMapPointForAMapLatLng(latLng1);
+    MAMapPoint point2 = MAMapPointForAMapLatLng(latLng2);
     
     CLLocationDistance distance = MAMetersBetweenMapPoints(point1, point2);
     
@@ -86,7 +86,7 @@ MAMapPoint AMapLatLngToMAMapPoint(AMapLatLng* latLng){
     
     for (int i = 0; i < count; i++) {
         AMapLatLng *ll = latLngs[i];
-        CLLocationCoordinate2D item = AMapLatLngToCLLocationCoordinate2D(ll);
+        CLLocationCoordinate2D item = CLLocationCoordinate2DForAMapLatLng(ll);
         array[i] = item;
     }
     
