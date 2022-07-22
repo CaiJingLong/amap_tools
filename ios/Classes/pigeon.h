@@ -35,6 +35,10 @@ NSObject<FlutterMessageCodec> *AMapToolApiGetCodec(void);
 @protocol AMapToolApi
 /// @return `nil` only when `error != nil`.
 - (nullable AMapLatLng *)convertLatLngLatLng:(AMapLatLng *)latLng type:(NSNumber *)type error:(FlutterError *_Nullable *_Nonnull)error;
+/// @return `nil` only when `error != nil`.
+- (nullable NSNumber *)calculateDistanceLatLng1:(AMapLatLng *)latLng1 latLng2:(AMapLatLng *)latLng2 error:(FlutterError *_Nullable *_Nonnull)error;
+/// @return `nil` only when `error != nil`.
+- (nullable NSNumber *)calculateAreaLatLng1:(AMapLatLng *)latLng1 latLng2:(AMapLatLng *)latLng2 error:(FlutterError *_Nullable *_Nonnull)error;
 @end
 
 extern void AMapToolApiSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<AMapToolApi> *_Nullable api);

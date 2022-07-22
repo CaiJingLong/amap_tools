@@ -121,6 +121,8 @@ public class Pigeon {
   /** Generated interface from Pigeon that represents a handler of messages from Flutter.*/
   public interface AMapToolApi {
     @NonNull AMapLatLng convertLatLng(@NonNull AMapLatLng latLng, @NonNull Long type);
+    @NonNull Double calculateDistance(@NonNull AMapLatLng latLng1, @NonNull AMapLatLng latLng2);
+    @NonNull Double calculateArea(@NonNull AMapLatLng latLng1, @NonNull AMapLatLng latLng2);
 
     /** The codec used by AMapToolApi. */
     static MessageCodec<Object> getCodec() {
@@ -146,6 +148,62 @@ public class Pigeon {
                 throw new NullPointerException("typeArg unexpectedly null.");
               }
               AMapLatLng output = api.convertLatLng(latLngArg, (typeArg == null) ? null : typeArg.longValue());
+              wrapped.put("result", output);
+            }
+            catch (Error | RuntimeException exception) {
+              wrapped.put("error", wrapError(exception));
+            }
+            reply.reply(wrapped);
+          });
+        } else {
+          channel.setMessageHandler(null);
+        }
+      }
+      {
+        BasicMessageChannel<Object> channel =
+            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.AMapToolApi.calculateDistance", getCodec());
+        if (api != null) {
+          channel.setMessageHandler((message, reply) -> {
+            Map<String, Object> wrapped = new HashMap<>();
+            try {
+              ArrayList<Object> args = (ArrayList<Object>)message;
+              AMapLatLng latLng1Arg = (AMapLatLng)args.get(0);
+              if (latLng1Arg == null) {
+                throw new NullPointerException("latLng1Arg unexpectedly null.");
+              }
+              AMapLatLng latLng2Arg = (AMapLatLng)args.get(1);
+              if (latLng2Arg == null) {
+                throw new NullPointerException("latLng2Arg unexpectedly null.");
+              }
+              Double output = api.calculateDistance(latLng1Arg, latLng2Arg);
+              wrapped.put("result", output);
+            }
+            catch (Error | RuntimeException exception) {
+              wrapped.put("error", wrapError(exception));
+            }
+            reply.reply(wrapped);
+          });
+        } else {
+          channel.setMessageHandler(null);
+        }
+      }
+      {
+        BasicMessageChannel<Object> channel =
+            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.AMapToolApi.calculateArea", getCodec());
+        if (api != null) {
+          channel.setMessageHandler((message, reply) -> {
+            Map<String, Object> wrapped = new HashMap<>();
+            try {
+              ArrayList<Object> args = (ArrayList<Object>)message;
+              AMapLatLng latLng1Arg = (AMapLatLng)args.get(0);
+              if (latLng1Arg == null) {
+                throw new NullPointerException("latLng1Arg unexpectedly null.");
+              }
+              AMapLatLng latLng2Arg = (AMapLatLng)args.get(1);
+              if (latLng2Arg == null) {
+                throw new NullPointerException("latLng2Arg unexpectedly null.");
+              }
+              Double output = api.calculateArea(latLng1Arg, latLng2Arg);
               wrapped.put("result", output);
             }
             catch (Error | RuntimeException exception) {

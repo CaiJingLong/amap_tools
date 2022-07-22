@@ -135,4 +135,46 @@ void AMapToolApiSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<AMapT
       [channel setMessageHandler:nil];
     }
   }
+  {
+    FlutterBasicMessageChannel *channel =
+      [[FlutterBasicMessageChannel alloc]
+        initWithName:@"dev.flutter.pigeon.AMapToolApi.calculateDistance"
+        binaryMessenger:binaryMessenger
+        codec:AMapToolApiGetCodec()        ];
+    if (api) {
+      NSCAssert([api respondsToSelector:@selector(calculateDistanceLatLng1:latLng2:error:)], @"AMapToolApi api (%@) doesn't respond to @selector(calculateDistanceLatLng1:latLng2:error:)", api);
+      [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
+        NSArray *args = message;
+        AMapLatLng *arg_latLng1 = GetNullableObjectAtIndex(args, 0);
+        AMapLatLng *arg_latLng2 = GetNullableObjectAtIndex(args, 1);
+        FlutterError *error;
+        NSNumber *output = [api calculateDistanceLatLng1:arg_latLng1 latLng2:arg_latLng2 error:&error];
+        callback(wrapResult(output, error));
+      }];
+    }
+    else {
+      [channel setMessageHandler:nil];
+    }
+  }
+  {
+    FlutterBasicMessageChannel *channel =
+      [[FlutterBasicMessageChannel alloc]
+        initWithName:@"dev.flutter.pigeon.AMapToolApi.calculateArea"
+        binaryMessenger:binaryMessenger
+        codec:AMapToolApiGetCodec()        ];
+    if (api) {
+      NSCAssert([api respondsToSelector:@selector(calculateAreaLatLng1:latLng2:error:)], @"AMapToolApi api (%@) doesn't respond to @selector(calculateAreaLatLng1:latLng2:error:)", api);
+      [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
+        NSArray *args = message;
+        AMapLatLng *arg_latLng1 = GetNullableObjectAtIndex(args, 0);
+        AMapLatLng *arg_latLng2 = GetNullableObjectAtIndex(args, 1);
+        FlutterError *error;
+        NSNumber *output = [api calculateAreaLatLng1:arg_latLng1 latLng2:arg_latLng2 error:&error];
+        callback(wrapResult(output, error));
+      }];
+    }
+    else {
+      [channel setMessageHandler:nil];
+    }
+  }
 }

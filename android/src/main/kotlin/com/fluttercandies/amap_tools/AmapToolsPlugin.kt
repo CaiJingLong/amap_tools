@@ -2,8 +2,8 @@ package com.fluttercandies.amap_tools
 
 import android.content.Context
 import androidx.annotation.NonNull
+import com.amap.api.maps.AMapUtils
 import com.amap.api.maps.CoordinateConverter
-import com.amap.api.maps.model.LatLng
 import com.fluttercandies.amap.pigeon.Pigeon
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -12,12 +12,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
-/** AmapToolsPlugin */
 class AmapToolsPlugin : FlutterPlugin, MethodCallHandler, Pigeon.AMapToolApi {
-    /// The MethodChannel that will the communication between Flutter and native Android
-    ///
-    /// This local reference serves to register the plugin with the Flutter Engine and unregister it
-    /// when the Flutter Engine is detached from the Activity
     private lateinit var channel: MethodChannel
 
     private lateinit var context: Context
@@ -43,14 +38,18 @@ class AmapToolsPlugin : FlutterPlugin, MethodCallHandler, Pigeon.AMapToolApi {
     }
 
     override fun convertLatLng(latLng: Pigeon.AMapLatLng, type: Long): Pigeon.AMapLatLng {
-        val dst = CoordinateConverter(context)
-                .coord(LatLng(latLng.latitude, latLng.longitude))
-                .from(CoordinateConverter.CoordType.values()[type.toInt()])
+        return CoordinateConverter(context)
+                .coord(latLng.toAmap())
+                .from(type.toInt().toEnum(CoordinateConverter.CoordType.values()))
                 .convert()
+                .toPigeon()
+    }
 
-        return Pigeon.AMapLatLng.Builder()
-                .setLatitude(dst.latitude)
-                .setLongitude(dst.longitude)
-                .build()
+    override fun calculateDistance(latLng1: Pigeon.AMapLatLng, latLng2: Pigeon.AMapLatLng): Double {
+        return AMapUtils.calculateLineDistance(latLng1.toAmap(), latLng2.toAmap()).toDouble()
+    }
+
+    override fun calculateArea(latLng1: Pigeon.AMapLatLng, latLng2: Pigeon.AMapLatLng): Double {
+        return AMapUtils.calculateArea(latLng1.toAmap(), latLng2.toAmap()).toDouble()
     }
 }
